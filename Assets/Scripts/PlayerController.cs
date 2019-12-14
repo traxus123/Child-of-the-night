@@ -11,12 +11,12 @@ public class PlayerController : MonoBehaviour
 
     public int life = 100;
     public int maxLife = 100;
-    private Rigidbody2D r;
+    private Rigidbody r;
 
     // Start is called before the first frame update
     void Start()
     {
-        r = GetComponent<Rigidbody2D>();
+        r = GetComponent<Rigidbody>();
     }
 
     // Update is called once per physics tick
@@ -24,12 +24,14 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
-            r.position = new Vector2(r.position.x + speed * Time.fixedDeltaTime, r.position.y);
+            r.position = new Vector3(r.position.x + speed * Time.fixedDeltaTime, r.position.y, r.position.z);
+            transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z);
             rotation = 1;
         }
         else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.Q))
         {
-            r.position = new Vector2(r.position.x - speed * Time.fixedDeltaTime, r.position.y);
+            r.position = new Vector3(r.position.x - speed * Time.fixedDeltaTime, r.position.y, r.position.z);
+            transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z);
             rotation = -1;
         }
 
@@ -37,15 +39,15 @@ public class PlayerController : MonoBehaviour
         {
             if (!isJumping)
             {
-                r.velocity = new Vector2(r.velocity.x, jumpForce);
+                r.velocity = new Vector3(r.velocity.x, jumpForce, r.velocity.z);
                 isJumping = true;
             }
         }
     }
 
-    void OnCollisionStay2D(Collision2D col)
+    void OnCollisionStay(Collision col)
     {
-        if (col.gameObject.CompareTag("Mapping") && GetComponent<Rigidbody2D>().velocity.y == 0 )
+        if (col.gameObject.CompareTag("Mapping") && r.velocity.y == 0 )
         {
             isJumping = false;
         }
