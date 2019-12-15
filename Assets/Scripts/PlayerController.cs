@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     public bool isJumping = false;
     public int rotation = 0;
     public float speed = 6.0f;
-    public float jumpForce = 18.0f;
+    public float jumpForce = 8.0f;
 
     public int life = 100;
     public int maxLife = 100;
