@@ -53,9 +53,11 @@ public class testEnemyAI : MonoBehaviour
         }
         else if (status == AI_STATE.ALERT)
         {
+
+            testEnemyMoves.isRight = PlayerDirection();
             if (GroundCheck(true))
             {
-                testEnemyMoves.Move(testEnemyMoves.speed, PlayerDirection());
+                testEnemyMoves.Move(testEnemyMoves.speed, testEnemyMoves.isRight);
             }
             currentAlertTime += 1;
             if (currentAlertTime >= alertTime)
