@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public bool isJumping = false;
     public bool isRunning = false;
     public bool inDialogue = false;
-    public int rotation = 0;
+    public float rotation = 0;
     public float speed = 6.0f;
     public float jumpForce = 6.0f;
     public int life = 100;
@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         r = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        rotation = transform.localScale.x;
     }
 
     // Update is called once per physics tick
@@ -39,14 +40,12 @@ public class PlayerController : MonoBehaviour
             {
                 r.position = new Vector3(r.position.x + speed * Time.fixedDeltaTime, r.position.y, r.position.z);
                 transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z);
-                rotation = 1;
                 isRunning = true;
             }
             else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.Q))
             {
                 r.position = new Vector3(r.position.x - speed * Time.fixedDeltaTime, r.position.y, r.position.z);
-                transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z);
-                rotation = -1;
+                transform.localScale = new Vector3(-rotation, transform.localScale.y, transform.localScale.z);
                 isRunning = true;
             }
             else
