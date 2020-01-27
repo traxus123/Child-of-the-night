@@ -6,13 +6,16 @@ public class testEnemyAI : MonoBehaviour
 {
     public float sightLength = 8.0f;
     public float sightAngle = 22.5f;
+    public float attackRange = 2.0f;
     public testEnemyMoves testEnemyMoves;
+    public testActor testActor;
     public GameObject player;
     public AI_STATE status = AI_STATE.PATROL;
     // Start is called before the first frame update
     void Start()
     {
         if (testEnemyMoves == null) testEnemyMoves = GetComponent<testEnemyMoves>();
+        if (testActor == null) testActor = GetComponent<testActor>();
     }
 
     // Update is called once per frame
@@ -28,6 +31,7 @@ public class testEnemyAI : MonoBehaviour
         if (Sight(true))
         {
             status = AI_STATE.ALERT;
+            GetComponent<SpriteRenderer>().color = Color.yellow;
             currentAlertTime = 0;
         }
 
@@ -52,16 +56,24 @@ public class testEnemyAI : MonoBehaviour
         }
         else if (status == AI_STATE.ALERT)
         {
-
             testEnemyMoves.isRight = PlayerDirection();
             if (GroundCheck(true))
             {
-                testEnemyMoves.Move(testEnemyMoves.speed, testEnemyMoves.isRight);
+                if (Vector2.Distance(transform.position, player.transform.position) <= attackRange)
+                {
+                    // ATTAQUE ENNEMI
+                    // Note : il faudra gérer un state dans l'animation et modifier la fonction pour que l'ennemi ne bouge pas pendant l'attaque je pense
+                }
+                else
+                {
+                    testEnemyMoves.Move(testEnemyMoves.speed, testEnemyMoves.isRight);
+                }
             }
             currentAlertTime += 1;
             if (currentAlertTime >= alertTime)
             {
                 status = AI_STATE.IDLE;
+                GetComponent<SpriteRenderer>().color = Color.blue;
                 currentAlertTime = 0;
             }
         }

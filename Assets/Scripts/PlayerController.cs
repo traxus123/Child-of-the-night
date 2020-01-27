@@ -8,11 +8,18 @@ public class PlayerController : MonoBehaviour
     public bool isJumping = false;
     public bool isRunning = false;
     public bool inDialogue = false;
-    public float rotation = 0;
+    public bool inAttaque = false;
+    public bool inAttBonus = false;
+    public int rotation = 0;
     public float speed = 6.0f;
     public float jumpForce = 6.0f;
     public int life = 100;
     public int maxLife = 100;
+    public int playerXp = 0;
+    public int maxXp = 100;
+    public int level = 1;
+    public int att = 1;
+    public int def = 1;
     private Animator anim;
     private Rigidbody r;
 
@@ -21,7 +28,6 @@ public class PlayerController : MonoBehaviour
     {
         r = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
-        rotation = transform.localScale.x;
     }
 
     // Update is called once per physics tick
@@ -40,12 +46,14 @@ public class PlayerController : MonoBehaviour
             {
                 r.position = new Vector3(r.position.x + speed * Time.fixedDeltaTime, r.position.y, r.position.z);
                 transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z);
+                rotation = 1;
                 isRunning = true;
             }
             else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.Q))
             {
                 r.position = new Vector3(r.position.x - speed * Time.fixedDeltaTime, r.position.y, r.position.z);
-                transform.localScale = new Vector3(-rotation, transform.localScale.y, transform.localScale.z);
+                transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z);
+                rotation = -1;
                 isRunning = true;
             }
             else
@@ -61,6 +69,32 @@ public class PlayerController : MonoBehaviour
                     isJumping = true;
                 }
             }
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                att = att * 2;
+                inAttBonus = true;
+            }
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                att = att / 2;
+                inAttBonus = false;
+            }
+            if (inAttaque)
+            {
+                inAttaque = false;
+            }
+            if (!inAttaque)
+            {
+                if (Input.GetKeyDown(KeyCode.K))
+                {
+                    inAttaque = true;
+                    Debug.Log(inAttBonus);
+                    if (inAttBonus)
+                    {
+                        Damage(2);
+                    }
+                }
+            }
         }
         
 
@@ -73,7 +107,11 @@ public class PlayerController : MonoBehaviour
         {
             isJumping = false;
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if (col.gameObject.CompareTag("Enemy") && inAttaque)
+        {
+            //Dégats Enemie
+        }
+            if (Input.GetKeyDown(KeyCode.A))
         {
             if (col.gameObject.CompareTag("NPC"))
             {
@@ -101,6 +139,23 @@ public class PlayerController : MonoBehaviour
         if (OnDamage != null)
         {
             OnDamage();
+        }
+    }
+
+    public delegate void xpEvent();
+    public event xpEvent OnXp;
+
+    public void Xp(int xp)
+    {
+        playerXp = playerXp + xp;
+        if(playerXp >= maxXp)
+        {
+            playerXp = playerXp - maxXp;
+            level++;
+        }
+        if (OnXp != null)
+        {
+            OnXp();
         }
     }
 }
