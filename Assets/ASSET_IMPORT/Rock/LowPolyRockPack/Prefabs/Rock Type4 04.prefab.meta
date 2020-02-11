@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 fileFormatVersion: 2
 guid: ccbe3c5efe0bbed4bbe4b8651efb2db8
 labels:
@@ -13,3 +14,20 @@ NativeFormatImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+=======
+fileFormatVersion: 2
+guid: ccbe3c5efe0bbed4bbe4b8651efb2db8
+labels:
+- lowpoly
+- rock
+- low-poly
+- rocks
+- art
+- pack
+timeCreated: 1457638052
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+>>>>>>> master

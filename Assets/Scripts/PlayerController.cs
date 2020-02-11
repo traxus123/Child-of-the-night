@@ -111,11 +111,15 @@ public class PlayerController : MonoBehaviour
         {
             //Dégats Enemie
         }
+<<<<<<< HEAD
        
     }
 
     void OnTriggerStay(Collider col){
         if (Input.GetKeyDown(KeyCode.A))
+=======
+            if (Input.GetKeyDown(KeyCode.A))
+>>>>>>> master
         {
             if (col.gameObject.CompareTag("NPC"))
             {
