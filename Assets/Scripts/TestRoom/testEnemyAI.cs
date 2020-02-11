@@ -28,6 +28,7 @@ public class testEnemyAI : MonoBehaviour
         if (Sight(true))
         {
             status = AI_STATE.ALERT;
+            GetComponent<SpriteRenderer>().color = Color.yellow;
             currentAlertTime = 0;
         }
 
@@ -62,6 +63,7 @@ public class testEnemyAI : MonoBehaviour
             if (currentAlertTime >= alertTime)
             {
                 status = AI_STATE.IDLE;
+                GetComponent<SpriteRenderer>().color = Color.blue;
                 currentAlertTime = 0;
             }
         }
