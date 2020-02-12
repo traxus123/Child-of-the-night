@@ -9,12 +9,10 @@ public class HUDController : MonoBehaviour
     public Text life;
     public Text maxLife;
     public Image lifeGauge;
-    public Image XpGauge;
     // Start is called before the first frame update
     void Awake()
     {
         player.OnDamage += Refresh;
-        player.OnXp += Refresh;
     }
 
     // Update is called once per frame
@@ -28,7 +26,5 @@ public class HUDController : MonoBehaviour
         life.text = player.life.ToString();
         //maxLife.text = player.maxLife.ToString();
         lifeGauge.rectTransform.sizeDelta = new Vector2(320*((float)player.life/(float)player.maxLife), 32);
-
-        XpGauge.rectTransform.sizeDelta = new Vector2(300 * ((float)player.life / (float)player.maxLife), 30);
     }
 }

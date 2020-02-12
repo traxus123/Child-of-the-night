@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public bool inDialogue = false;
     public bool inAttaque = false;
     public bool inAttBonus = false;
+    public bool inDrink = false;
     public int rotation = 0;
     public float speed = 6.0f;
     public float jumpForce = 6.0f;
@@ -79,47 +80,68 @@ public class PlayerController : MonoBehaviour
                 att = att / 2;
                 inAttBonus = false;
             }
-            if (inAttaque)
+            if (Input.GetKeyUp(KeyCode.K) && inAttaque)
             {
                 inAttaque = false;
+                anim.SetBool("inAttBonus", inAttaque);
+                anim.SetBool("inAttaque", inAttaque);
+                //transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z / 2);
+
             }
             if (!inAttaque)
             {
                 if (Input.GetKeyDown(KeyCode.K))
                 {
                     inAttaque = true;
+                    
                     Debug.Log(inAttBonus);
                     if (inAttBonus)
                     {
+                        anim.SetBool("inAttBonus", inAttaque);
                         Damage(2);
+                        //transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z * 2);
+                    }
+                    else
+                    {
+                        anim.SetBool("inAttaque", inAttaque);
+                        //transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z * 2);
                     }
                 }
             }
         }
-        
+
 
         anim.SetBool("isRunning", isRunning);
     }
 
     void OnCollisionStay(Collision col)
     {
-        if (col.gameObject.CompareTag("Mapping") && r.velocity.y == 0 )
+        if (col.gameObject.CompareTag("Mapping") && r.velocity.y == 0)
         {
             isJumping = false;
         }
-        if (col.gameObject.CompareTag("Enemy") && inAttaque)
+        
+        if (Input.GetKeyDown(KeyCode.I))
         {
-            //Dégats Enemie
+            inDrink = true; 
+            anim.SetBool("inDrink", inDrink);
+            if (col.gameObject.CompareTag("Enemy"))
+            {
+                //Dégats Enemie
+                Heal(2);
+            }
+            if (col.gameObject.CompareTag("NPC"))
+            {
+                //Dégats NPC
+                Heal(2);
+            }
         }
-<<<<<<< HEAD
-       
-    }
-
-    void OnTriggerStay(Collider col){
+        if (Input.GetKeyUp(KeyCode.I))
+        {
+            inDrink = false;
+            anim.SetBool("inDrink", inDrink);
+        }
         if (Input.GetKeyDown(KeyCode.A))
-=======
-            if (Input.GetKeyDown(KeyCode.A))
->>>>>>> master
         {
             if (col.gameObject.CompareTag("NPC"))
             {
@@ -127,7 +149,7 @@ public class PlayerController : MonoBehaviour
                 {
                     FindObjectOfType<DialogueManager>().displayNextSentence();
                 }
-                else if(col.gameObject.GetComponentInChildren<DialogueInstance>() != null && !inDialogue)
+                else if (col.gameObject.GetComponentInChildren<DialogueInstance>() != null && !inDialogue)
                 {
                     inDialogue = true;
                     Dialogue dialogue = col.gameObject.GetComponentInChildren<DialogueInstance>().dialogue;
@@ -148,6 +170,22 @@ public class PlayerController : MonoBehaviour
         {
             OnDamage();
         }
+        if(life <= 0)
+        {
+            //La mort, tout ca
+        }
+    }
+
+    public delegate void healEvent();
+    public event damageEvent OnHeal;
+
+    public void Heal(int heal)
+    {
+        life = Mathf.Min(maxLife, Mathf.Max(0, life + heal));
+        if (OnHeal != null)
+        {
+            OnHeal();
+        }
     }
 
     public delegate void xpEvent();
@@ -156,7 +194,7 @@ public class PlayerController : MonoBehaviour
     public void Xp(int xp)
     {
         playerXp = playerXp + xp;
-        if(playerXp >= maxXp)
+        if (playerXp >= maxXp)
         {
             playerXp = playerXp - maxXp;
             level++;

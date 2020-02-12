@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 fileFormatVersion: 2
 guid: 52662b578ff18034aa89fddf59405d22
 folderAsset: yes
@@ -8,14 +7,3 @@ DefaultImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-=======
-fileFormatVersion: 2
-guid: 52662b578ff18034aa89fddf59405d22
-folderAsset: yes
-timeCreated: 1459790347
-licenseType: Store
-DefaultImporter:
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
->>>>>>> master
