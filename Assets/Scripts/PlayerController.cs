@@ -10,8 +10,9 @@ public class PlayerController : MonoBehaviour
     public bool inDialogue = false;
     public bool inAttaque = false;
     public bool inAttBonus = false;
+    public bool hasAtt = false;
     public bool inDrink = false;
-    public int rotation = 0;
+    public int rotation = 1;
     public float speed = 6.0f;
     public float jumpForce = 6.0f;
     public int life = 100;
@@ -30,6 +31,10 @@ public class PlayerController : MonoBehaviour
         r = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
     }
+    void LateUpdate()
+    {
+        transform.localScale = new Vector3(transform.localScale.x * rotation, transform.localScale.y, transform.localScale.z);
+    }
 
     // Update is called once per physics tick
     void FixedUpdate()
@@ -40,11 +45,16 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isRunning", isRunning);
             return;
         }
+        if (!anim.GetBool("inAttaque"))
+        {
+            hasAtt = false;
+        }
         if (!inDialogue)
         {
 
             if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             {
+
                 r.position = new Vector3(r.position.x + speed * Time.fixedDeltaTime, r.position.y, r.position.z);
                 transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z);
                 rotation = 1;
@@ -94,6 +104,7 @@ public class PlayerController : MonoBehaviour
                 {
                     inAttaque = true;
                     
+                    
                     Debug.Log(inAttBonus);
                     if (inAttBonus)
                     {
@@ -116,6 +127,17 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionStay(Collision col)
     {
+
+        if (inAttaque && !hasAtt)
+        {
+            if (col.gameObject.CompareTag("Enemy"))
+            {
+                Debug.Log("Les dégats, tout ca");
+                col.gameObject.GetComponent<EnemyController>().Damage(att);
+                hasAtt = true;
+            }
+        }
+
         if (col.gameObject.CompareTag("Mapping") && r.velocity.y == 0)
         {
             isJumping = false;
@@ -128,6 +150,7 @@ public class PlayerController : MonoBehaviour
             if (col.gameObject.CompareTag("Enemy"))
             {
                 //Dégats Enemie
+                col.gameObject.GetComponent<EnemyController>().Damage(att);
                 Heal(2);
             }
             if (col.gameObject.CompareTag("NPC"))
@@ -158,6 +181,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+        
     }
 
     public delegate void damageEvent();
@@ -172,7 +196,7 @@ public class PlayerController : MonoBehaviour
         }
         if(life <= 0)
         {
-            //La mort, tout ca
+            anim.SetBool("Dead", true);
         }
     }
 
@@ -204,4 +228,5 @@ public class PlayerController : MonoBehaviour
             OnXp();
         }
     }
+
 }

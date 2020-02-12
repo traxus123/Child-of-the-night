@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public int life = 10;
+    public int life = 40;
     public int att = 1;
     public bool inHit = false;
     private Animator anim;
@@ -14,35 +14,29 @@ public class EnemyController : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    void OnCollisionStay(Collision col)
+    void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.CompareTag("Player"))
+        if (col.gameObject.CompareTag("Player") && life >= 0)
         {
+            Debug.Log("Enemy");
             inHit = true;
-            Damage(2);
         }
         if (!anim.GetBool("inHit"))
         {
             inHit = false;
         }
-        if(life <= 0)
-        {
-            transform.gameObject.tag = "D_Enemy";
-            anim.SetBool("Dead", true);
-        }
+        
         anim.SetBool("inHit", inHit);
     }
-
-
-    public delegate void damageEvent();
-    public event damageEvent OnDamage;
 
     public void Damage(int damage)
     {
         life = life - damage;
-        if (OnDamage != null)
+        if (life <= 0)
         {
-            OnDamage();
+            //transform.gameObject.tag = "Dead";
+            //anim.SetBool("Dead", true);
+            gameObject.active = false;
         }
     }
 }
