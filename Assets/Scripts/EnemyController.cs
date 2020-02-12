@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public int life = 40;
-    public int att = 1;
+    public int att = 5;
     public bool inHit = false;
     private Animator anim;
 
@@ -36,6 +36,7 @@ public class EnemyController : MonoBehaviour
         {
             //transform.gameObject.tag = "Dead";
             //anim.SetBool("Dead", true);
+            Debug.Log(att + " sur enemie");
             gameObject.active = false;
         }
     }

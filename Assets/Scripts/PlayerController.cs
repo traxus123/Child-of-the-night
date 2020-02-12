@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isRunning", isRunning);
             return;
         }
-        if (!anim.GetBool("inAttaque"))
+        if (!anim.GetBool("inAttaque") || !anim.GetBool("inAttBonus"))
         {
             hasAtt = false;
         }
@@ -80,36 +80,31 @@ public class PlayerController : MonoBehaviour
                     isJumping = true;
                 }
             }
+
+            if (!Input.GetKey(KeyCode.K) && inAttaque)
+            {
+                inAttaque = false;
+
+                //transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z / 2);
+
+            }
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                att = att * 2;
                 inAttBonus = true;
             }
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
-                att = att / 2;
                 inAttBonus = false;
-            }
-            if (Input.GetKeyUp(KeyCode.K) && inAttaque)
-            {
-                inAttaque = false;
-                // anim.SetBool("inAttBonus", inAttaque);
-                // anim.SetBool("inAttaque", inAttaque);
-                //transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z / 2);
-
             }
             if (!inAttaque)
             {
-                if (Input.GetKeyDown(KeyCode.K))
+                if (Input.GetKey(KeyCode.K))
                 {
                     inAttaque = true;
-                    
-                    
-                    Debug.Log(inAttBonus);
+
                     if (inAttBonus)
                     {
                         anim.SetBool("inAttBonus", inAttaque);
-                        Damage(2);
                         //transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z * 2);
                     }
                     else
@@ -132,8 +127,17 @@ public class PlayerController : MonoBehaviour
         {
             if (col.gameObject.CompareTag("Enemy"))
             {
-                Debug.Log("Les dégats, tout ca");
-                col.gameObject.GetComponent<EnemyController>().Damage(att);
+                
+                if (inAttBonus)
+                {
+                    Damage(2);
+
+                    col.gameObject.GetComponent<EnemyController>().Damage(att * 2);
+                }
+                else
+                {
+                    col.gameObject.GetComponent<EnemyController>().Damage(att);
+                }
                 hasAtt = true;
             }
         }
@@ -151,12 +155,12 @@ public class PlayerController : MonoBehaviour
             {
                 //Dégats Enemie
                 col.gameObject.GetComponent<EnemyController>().Damage(att);
-                Heal(2);
+                Damage(-att);
             }
             if (col.gameObject.CompareTag("NPC"))
             {
                 //Dégats NPC
-                Heal(2);
+                Damage(-att);
             }
         }
         if (Input.GetKeyUp(KeyCode.I))
@@ -197,18 +201,6 @@ public class PlayerController : MonoBehaviour
         if(life <= 0)
         {
             anim.SetBool("Dead", true);
-        }
-    }
-
-    public delegate void healEvent();
-    public event damageEvent OnHeal;
-
-    public void Heal(int heal)
-    {
-        life = Mathf.Min(maxLife, Mathf.Max(0, life + heal));
-        if (OnHeal != null)
-        {
-            OnHeal();
         }
     }
 
