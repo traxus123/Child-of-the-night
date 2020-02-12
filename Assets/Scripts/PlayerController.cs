@@ -82,9 +82,9 @@ public class PlayerController : MonoBehaviour
             }
             if (Input.GetKeyUp(KeyCode.K) && inAttaque)
             {
-                inAttaque = false;
-                anim.SetBool("inAttBonus", inAttaque);
-                anim.SetBool("inAttaque", inAttaque);
+                // inAttaque = false;
+                // anim.SetBool("inAttBonus", inAttaque);
+                // anim.SetBool("inAttaque", inAttaque);
                 //transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z / 2);
 
             }
