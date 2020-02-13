@@ -185,12 +185,8 @@ public class PlayerController : MonoBehaviour
             if (col.gameObject.CompareTag("NPC"))
             {
                 //Dégats NPC
-<<<<<<< HEAD
                 col.gameObject.GetComponent<PnjController>().Damage(att);
                 Heal(att);
-=======
-                Damage(-att);
->>>>>>> 43e2ac490988a8ebcbc470c9ee02f742895bb961
             }
         }
         if (Input.GetKeyUp(KeyCode.I))
