@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour
     public int def = 1;
     private Animator anim;
     private Rigidbody r;
-    private float cooldawn = 1.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -36,9 +35,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (cooldawn % Time.fixedTime == 0)
+        if (Time.frameCount % 60 == 0)
         {
             hasAtt = false;
+            Debug.Log("tack");
         }
     }
     void LateUpdate()
