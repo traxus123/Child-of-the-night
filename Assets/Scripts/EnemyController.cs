@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    void OnTriggerStay(Collider col)
+    void OnCollisionEnter(Collision col)
     {
         
     }
@@ -26,8 +26,8 @@ public class EnemyController : MonoBehaviour
         {
             //transform.gameObject.tag = "Dead";
             //anim.SetBool("Dead", true);
-            Debug.Log(damage + " sur enemie");
-            gameObject.active = false;
+            Debug.Log(att + " sur enemie");
+            gameObject.SetActive(false);
         }
         else
         {

@@ -87,6 +87,7 @@ public class PlayerController : MonoBehaviour
                 {
                     r.velocity = new Vector3(r.velocity.x, jumpForce, r.velocity.z);
                     isJumping = true;
+                    anim.SetBool("isJumping", isJumping);
                 }
             }
 
@@ -119,13 +120,33 @@ public class PlayerController : MonoBehaviour
                     else
                     {
                         anim.SetBool("inAttaque", inAttaque);
+                        if(rotation == 1)
+                        {
+                            r.position = new Vector3(r.position.x + 21.0f * Time.fixedDeltaTime, r.position.y, r.position.z);
+                        }
+                        else if(rotation == -1)
+                        {
+                            r.position = new Vector3(r.position.x - 21.0f * Time.fixedDeltaTime, r.position.y, r.position.z);
+                        }
                         //transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z * 2);
                     }
                 }
             }
         }
 
-        anim.SetBool("isJumping", isJumping);
+        if (isJumping)
+        {
+            RaycastHit ground;
+            if (Physics.Linecast(transform.position - new Vector3(0, transform.localScale.y/2-0.1f, 0), transform.position - new Vector3(0, transform.localScale.y/2+0.1f, 0), out ground))
+            {
+                if (ground.transform.gameObject.CompareTag("Mapping"))
+                {
+                    isJumping = false;
+                    anim.SetBool("isJumping", isJumping);
+                }
+            }
+            
+        }
         anim.SetBool("isRunning", isRunning);
     }
 
@@ -150,11 +171,6 @@ public class PlayerController : MonoBehaviour
                 hasAtt = true;
             }
         }
-
-        if (col.gameObject.CompareTag("Mapping") && r.velocity.y <= 0.69)
-        {
-            isJumping = false;
-        }
         
         if (Input.GetKeyDown(KeyCode.I))
         {
@@ -169,7 +185,6 @@ public class PlayerController : MonoBehaviour
             if (col.gameObject.CompareTag("NPC"))
             {
                 //Dégats NPC
-                col.gameObject.GetComponent<PnjController>().Damage(att);
                 Damage(-att);
             }
         }
@@ -204,7 +219,7 @@ public class PlayerController : MonoBehaviour
     public void Damage(int damage)
     {
         life = Mathf.Min(maxLife, Mathf.Max(0, life - damage));
-        if (OnDamage != null && damage > 0)
+        if (OnDamage != null)
         {
             OnDamage();
         }
@@ -217,7 +232,7 @@ public class PlayerController : MonoBehaviour
 
     public void HitAnim()
     {
-        anim.SetBool("inHit", true);
+        anim.SetBool("isHit", true);
     }
 
     public delegate void xpEvent();
