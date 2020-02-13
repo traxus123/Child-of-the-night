@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         r = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        OnDamage += HitAnim;
     }
     void LateUpdate()
     {
@@ -126,6 +127,7 @@ public class PlayerController : MonoBehaviour
 
 
         anim.SetBool("isRunning", isRunning);
+        anim.SetBool("isJumping", isJumping);
     }
 
     void OnCollisionStay(Collision col)
@@ -210,6 +212,11 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetBool("Dead", true);
         }
+    }
+
+    public void HitAnim()
+    {
+        anim.SetBool("isHit", true);
     }
 
     public delegate void xpEvent();
