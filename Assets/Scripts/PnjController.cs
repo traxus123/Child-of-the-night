@@ -2,21 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class PnjController : MonoBehaviour
 {
-    public int life = 40;
-    public int att = 5;
+
+    public int life = 10;
     public bool inHit = false;
     private Animator anim;
 
     void Start()
     {
         anim = GetComponent<Animator>();
-    }
-
-    void OnTriggerStay(Collider col)
-    {
-        
     }
 
     public void Damage(int damage)
@@ -26,12 +21,12 @@ public class EnemyController : MonoBehaviour
         {
             //transform.gameObject.tag = "Dead";
             //anim.SetBool("Dead", true);
-            Debug.Log(damage + " sur enemie");
+            Debug.Log(damage + " sur PNJ");
             gameObject.active = false;
         }
         else
         {
-            anim.SetBool("inHit", true);
+            //anim.SetBool("inHit", true);
         }
     }
 }
