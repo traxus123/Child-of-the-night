@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour
     public int life = 40;
     public int att = 5;
     public bool inHit = false;
-    private Animator anim;
+    public Animator anim;
 
     void Start()
     {

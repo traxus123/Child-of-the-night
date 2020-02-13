@@ -12109,6 +12109,8 @@ GameObject:
   - component: {fileID: 7586678044927982716}
   - component: {fileID: 6010876238554329261}
   - component: {fileID: 7586678044927982715}
+  - component: {fileID: 7586678044927982721}
+  - component: {fileID: 7586678044927982720}
   m_Layer: 0
   m_Name: Mafieux
   m_TagString: Enemy
@@ -12131,6 +12133,7 @@ MonoBehaviour:
   life: 10
   att: 1
   inHit: 0
+  anim: {fileID: 7586678044927982716}
 --- !u!95 &7586678044927982716
 Animator:
   serializedVersion: 3
@@ -12216,6 +12219,43 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &7586678044927982720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7586678044927982714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b26c25b7ea53224478c55da380e18062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sightLength: 8
+  sightAngle: 22.5
+  testEnemyMoves: {fileID: 7586678044927982721}
+  actor: {fileID: 7586678044927982715}
+  player: {fileID: 0}
+  status: 1
+--- !u!114 &7586678044927982721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7586678044927982714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bca9361f7e95c4e8197fe0d887037f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 6010876238554329261}
+  speed: 5
+  patrolSpeed: 3
+  jumpForce: 18
+  isRight: 1
+  isRunning: 0
+  isAttacking: 0
 --- !u!1001 &8481225069191117483
 PrefabInstance:
   m_ObjectHideFlags: 0

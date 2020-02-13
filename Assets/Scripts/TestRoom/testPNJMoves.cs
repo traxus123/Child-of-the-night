@@ -39,15 +39,19 @@ public class testPNJMoves : MonoBehaviour
 
     public void Look(bool right = true)
     {
-        if (right)
-        {
-            transform.localScale = new Vector3(xscale, transform.localScale.y, transform.localScale.z);
+        if (right) {
             isRight = true;
-        }
-        else
-        {
-            transform.localScale = new Vector3(-xscale, transform.localScale.y, transform.localScale.z);
+        } else {
             isRight = false;
+        }
+    }
+
+    void LateUpdate()
+    {
+        if (isRight) {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        } else {
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
     }
 

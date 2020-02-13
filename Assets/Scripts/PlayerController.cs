@@ -35,9 +35,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Time.frameCount % 40 == 0)
+        if (Time.frameCount % 60 == 0)
         {
             hasAtt = false;
+            Debug.Log("tack");
         }
     }
     void LateUpdate()
@@ -60,26 +61,25 @@ public class PlayerController : MonoBehaviour
             {
                 Damage(2);
             }
-                if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-                {
+            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+            {
 
-                    r.position = new Vector3(r.position.x + speed * Time.fixedDeltaTime, r.position.y, r.position.z);
-                    transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z);
-                    rotation = 1;
-                    isRunning = true;
-                }
-                else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.Q))
-                {
-                    r.position = new Vector3(r.position.x - speed * Time.fixedDeltaTime, r.position.y, r.position.z);
-                    transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z);
-                    rotation = -1;
-                    isRunning = true;
-                }
-                else
-                {
-                    isRunning = false;
-                }
-            
+                r.position = new Vector3(r.position.x + speed * Time.fixedDeltaTime, r.position.y, r.position.z);
+                transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z);
+                rotation = 1;
+                isRunning = true;
+            }
+            else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.Q))
+            {
+                r.position = new Vector3(r.position.x - speed * Time.fixedDeltaTime, r.position.y, r.position.z);
+                transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z);
+                rotation = -1;
+                isRunning = true;
+            }
+            else
+            {
+                isRunning = false;
+            }
 
             if (Input.GetKey(KeyCode.Space))
             {
@@ -180,13 +180,12 @@ public class PlayerController : MonoBehaviour
             {
                 //Dégats Enemie
                 col.gameObject.GetComponent<EnemyController>().Damage(att);
-                Heal(att);
+                Damage(-att);
             }
             if (col.gameObject.CompareTag("NPC"))
             {
                 //Dégats NPC
-                col.gameObject.GetComponent<PnjController>().Damage(att);
-                Heal(att);
+                Damage(-att);
             }
         }
         if (Input.GetKeyUp(KeyCode.I))
@@ -231,22 +230,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public delegate void healEvent();
-    public event healEvent onHeal;
-
-    public void Heal(int heal)
-    {
-        life = Mathf.Min(maxLife, Mathf.Max(0, life + heal));
-        if (onHeal != null)
-        {
-            onHeal();
-        }
-    }
-
     public void HitAnim()
     {
         anim.SetBool("isHit", true);
-        r.velocity = new Vector3(-rotation * 3.0f, r.velocity.y + 0.1f, r.velocity.z);
     }
 
     public delegate void xpEvent();
