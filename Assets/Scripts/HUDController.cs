@@ -12,6 +12,7 @@ public class HUDController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        player.onHeal += Refresh;
         player.OnDamage += Refresh;
     }
 
