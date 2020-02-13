@@ -16,17 +16,7 @@ public class EnemyController : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.CompareTag("Player") && life >= 0)
-        {
-            Debug.Log("Enemy");
-            inHit = true;
-        }
-        if (!anim.GetBool("inHit"))
-        {
-            inHit = false;
-        }
         
-        anim.SetBool("inHit", inHit);
     }
 
     public void Damage(int damage)
@@ -38,6 +28,10 @@ public class EnemyController : MonoBehaviour
             //anim.SetBool("Dead", true);
             Debug.Log(att + " sur enemie");
             gameObject.active = false;
+        }
+        else
+        {
+            anim.SetBool("inHit", true);
         }
     }
 }
