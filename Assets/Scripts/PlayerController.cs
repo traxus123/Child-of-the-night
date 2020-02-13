@@ -133,9 +133,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-
-        anim.SetBool("isRunning", isRunning);
         anim.SetBool("isJumping", isJumping);
+        anim.SetBool("isRunning", isRunning);
     }
 
     void OnTriggerStay(Collider col)
@@ -160,7 +159,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (col.gameObject.CompareTag("Mapping") && r.velocity.y == 0)
+        if (col.gameObject.CompareTag("Mapping") && r.velocity.y <= 0.69)
         {
             isJumping = false;
         }
