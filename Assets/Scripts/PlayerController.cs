@@ -217,7 +217,7 @@ public class PlayerController : MonoBehaviour
 
     public void HitAnim()
     {
-        anim.SetBool("isHit", true);
+        anim.SetBool("inHit", true);
     }
 
     public delegate void xpEvent();
