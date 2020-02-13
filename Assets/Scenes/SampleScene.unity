@@ -3694,7 +3694,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0.1875, z: 0.03515625, w: -0.0390625}
+  m_BoundingSphereOverride: {x: -0.875, y: 0.796875, z: -0.640625, w: 0.375}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -12109,6 +12109,7 @@ GameObject:
   - component: {fileID: 7586678044927982716}
   - component: {fileID: 6010876238554329261}
   - component: {fileID: 7586678044927982715}
+  - component: {fileID: 7586678044927982720}
   m_Layer: 0
   m_Name: Mafieux
   m_TagString: Enemy
@@ -12216,6 +12217,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &7586678044927982720
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7586678044927982714}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.98, y: 0.7, z: -0.61}
+  m_Center: {x: 1, y: 0, z: 0}
 --- !u!1001 &8481225069191117483
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12362,8 +12376,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.16, y: 1, z: 0.13371468}
-  m_Center: {x: 1.06, y: 0, z: 0}
+  m_Size: {x: 1.16, y: 0.7952962, z: 0.5320368}
+  m_Center: {x: 1, y: 0.013438356, z: 0}
 --- !u!1001 &8730790561682148466
 PrefabInstance:
   m_ObjectHideFlags: 0

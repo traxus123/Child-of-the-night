@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public int def = 1;
     private Animator anim;
     private Rigidbody r;
+    private float cooldawn = 1.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,14 @@ public class PlayerController : MonoBehaviour
         r = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         OnDamage += HitAnim;
+    }
+
+    void Update()
+    {
+        if (cooldawn % Time.fixedTime == 0)
+        {
+            hasAtt = false;
+        }
     }
     void LateUpdate()
     {
@@ -46,13 +55,12 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isRunning", isRunning);
             return;
         }
-        if (!anim.GetBool("inAttaque") || !anim.GetBool("inAttBonus"))
-        {
-            hasAtt = false;
-        }
         if (!inDialogue)
         {
-
+            if (Input.GetKey(KeyCode.P))
+            {
+                Damage(2);
+            }
             if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             {
 
@@ -130,9 +138,9 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isJumping", isJumping);
     }
 
-    void OnCollisionStay(Collision col)
+    void OnTriggerStay(Collider col)
     {
-
+        
         if (inAttaque && !hasAtt)
         {
             if (col.gameObject.CompareTag("Enemy"))
@@ -210,6 +218,7 @@ public class PlayerController : MonoBehaviour
         }
         if(life <= 0)
         {
+            life = 0;
             anim.SetBool("Dead", true);
         }
     }
