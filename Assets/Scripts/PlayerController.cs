@@ -110,6 +110,14 @@ public class PlayerController : MonoBehaviour
                     else
                     {
                         anim.SetBool("inAttaque", inAttaque);
+                        if(rotation == 1)
+                        {
+                            r.position = new Vector3(r.position.x + 21.0f * Time.fixedDeltaTime, r.position.y, r.position.z);
+                        }
+                        else if(rotation == -1)
+                        {
+                            r.position = new Vector3(r.position.x - 21.0f * Time.fixedDeltaTime, r.position.y, r.position.z);
+                        }
                         //transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z * 2);
                     }
                 }

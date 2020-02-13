@@ -3694,7 +3694,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 2.75648e-40, y: 0, z: 1e-45, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 0.1875, z: 0.03515625, w: -0.0390625}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -12351,6 +12351,19 @@ MonoBehaviour:
   DialoguePanel: {fileID: 1327360727}
   nomDialogue: {fileID: 380778044}
   phraseDialogue: {fileID: 901610387}
+--- !u!65 &8481225069191117486
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8481225069191117484}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.16, y: 1, z: 0.13371468}
+  m_Center: {x: 1.06, y: 0, z: 0}
 --- !u!1001 &8730790561682148466
 PrefabInstance:
   m_ObjectHideFlags: 0
