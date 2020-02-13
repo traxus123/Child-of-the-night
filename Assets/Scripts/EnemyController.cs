@@ -27,7 +27,7 @@ public class EnemyController : MonoBehaviour
             //transform.gameObject.tag = "Dead";
             //anim.SetBool("Dead", true);
             Debug.Log(att + " sur enemie");
-            gameObject.active = false;
+            gameObject.SetActive(false);
         }
         else
         {
