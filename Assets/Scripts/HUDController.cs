@@ -13,6 +13,7 @@ public class HUDController : MonoBehaviour
     void Awake()
     {
         player.OnDamage += Refresh;
+        player.onHeal += Refresh;
     }
 
     // Update is called once per frame

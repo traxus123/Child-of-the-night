@@ -38,7 +38,6 @@ public class PlayerController : MonoBehaviour
         if (Time.frameCount % 60 == 0)
         {
             hasAtt = false;
-            Debug.Log("tack");
         }
     }
     void LateUpdate()
@@ -120,14 +119,6 @@ public class PlayerController : MonoBehaviour
                     else
                     {
                         anim.SetBool("inAttaque", inAttaque);
-                        if(rotation == 1)
-                        {
-                            r.position = new Vector3(r.position.x + 21.0f * Time.fixedDeltaTime, r.position.y, r.position.z);
-                        }
-                        else if(rotation == -1)
-                        {
-                            r.position = new Vector3(r.position.x - 21.0f * Time.fixedDeltaTime, r.position.y, r.position.z);
-                        }
                         //transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z * 2);
                     }
                 }
@@ -174,24 +165,28 @@ public class PlayerController : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.I))
         {
-            inDrink = true; 
-            anim.SetBool("inDrink", inDrink);
-            if (col.gameObject.CompareTag("Enemy"))
+            if (!hasAtt)
             {
-                //Dégats Enemie
-                col.gameObject.GetComponent<EnemyController>().Damage(att);
-                Damage(-att);
-            }
-            if (col.gameObject.CompareTag("NPC"))
-            {
-                //Dégats NPC
-                Damage(-att);
+                inDrink = true;
+                anim.SetBool("inDrink", inDrink);
+                if (col.gameObject.CompareTag("Enemy"))
+                {
+                    //Dégats Enemie
+                    col.gameObject.GetComponent<EnemyController>().Damage(att);
+                    Heal(att);
+                }
+                if (col.gameObject.CompareTag("NPC"))
+                {
+                    //Dégats NPC
+                    col.gameObject.GetComponent<PnjController>().Damage(att);
+                    Heal(att);
+                }
             }
         }
         if (Input.GetKeyUp(KeyCode.I))
         {
             inDrink = false;
-            anim.SetBool("inDrink", inDrink);
+            //anim.SetBool("inDrink", inDrink);
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -230,8 +225,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public delegate void healEvent();
+    public event healEvent onHeal;
+
+    public void Heal(int heal)
+    {
+        life = Mathf.Min(maxLife, Mathf.Max(0, life + heal));
+        if (onHeal != null)
+        {
+            onHeal();
+        }
+    }
+
     public void HitAnim()
     {
+        r.velocity = new Vector3(r.velocity.x + 2.0f * -rotation, r.velocity.x , r.velocity.z);
         anim.SetBool("isHit", true);
     }
 

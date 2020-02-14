@@ -8,6 +8,7 @@ public class testEnemyMoves : MonoBehaviour
     public float speed = 5.0f;
     public float patrolSpeed = 3.0f;
     public float jumpForce = 18.0f;
+    public bool isActive = true;
     public bool isRight = true;
     public bool isRunning = false;
     public bool isAttacking = false;
@@ -16,47 +17,70 @@ public class testEnemyMoves : MonoBehaviour
         if (body == null) body = GetComponent<Rigidbody>();
     }
 
-    // TO DO ATTAQUE ?
 
     public void Left(float speed)
     {
-        body.MovePosition(new Vector2(body.position.x - speed * Time.fixedDeltaTime, body.position.y));
-        Look(false);
+        if (isActive)
+        {
+            body.MovePosition(new Vector2(body.position.x - speed * Time.fixedDeltaTime, body.position.y));
+            Look(false);
+        }
     }
 
     public void Right(float speed)
     {
-        body.MovePosition(new Vector2(body.position.x + speed * Time.fixedDeltaTime, body.position.y));
-        Look(true);        
+        if (isActive)
+        {
+            body.MovePosition(new Vector2(body.position.x + speed * Time.fixedDeltaTime, body.position.y));
+            Look(true);
+        }
     }
 
     public void Move(float speed, bool right = true)
     {
-        if (right) Right(speed);
-        else Left(speed);
-        isRunning = true;
+        if (isActive)
+        {
+            if (right) Right(speed);
+            else Left(speed);
+            isRunning = true;
+        }
     }
 
     public void Look(bool right = true)
     {
-        if (right) {
-            isRight = true;
-        } else {
-            isRight = false;
+        if (isActive)
+        {
+            if (right)
+            {
+                isRight = true;
+            }
+            else
+            {
+                isRight = false;
+            }
         }
     }
 
     void LateUpdate()
     {
-        if (isRight) {
-            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-        } else {
-            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        if (isActive)
+        {
+            if (isRight)
+            {
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            }
+            else
+            {
+                transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            }
         }
     }
 
     public void Jump()
     {
-        body.velocity = new Vector2(body.velocity.x, jumpForce);
+        if (isActive)
+        {
+            body.velocity = new Vector2(body.velocity.x, jumpForce);
+        }
     }
 }

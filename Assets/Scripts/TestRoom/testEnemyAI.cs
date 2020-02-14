@@ -6,6 +6,7 @@ public class testEnemyAI : MonoBehaviour
 {
     public float sightLength = 8.0f;
     public float sightAngle = 22.5f;
+    public bool hasAtt = false;
     public testEnemyMoves testEnemyMoves;
     public EnemyController actor;
     public GameObject player;
@@ -15,6 +16,14 @@ public class testEnemyAI : MonoBehaviour
     {
         if (testEnemyMoves == null) testEnemyMoves = GetComponent<testEnemyMoves>();
         if (actor == null) actor = GetComponent<EnemyController>();
+    }
+
+    void Update()
+    {
+        if (Time.frameCount % 90 == 0)
+        {
+            hasAtt = false;
+        }
     }
 
     // Update is called once per frame
@@ -61,8 +70,14 @@ public class testEnemyAI : MonoBehaviour
             {
                 if (Vector3.Distance(transform.position, player.transform.position) <= 1.5)
                 {
-                    testEnemyMoves.isAttacking = true; // Remplacer par l'appel de l'ATTAQUE !!
-                    actor.anim.SetBool("isAttacking", testEnemyMoves.isAttacking);
+                    testEnemyMoves.isAttacking = true;
+                    testEnemyMoves.isRunning = false;
+                    if (!hasAtt)
+                    {
+                        hasAtt = true;
+                        FindObjectOfType<PlayerController>().Damage(3);
+                        actor.anim.SetBool("isAttacking", testEnemyMoves.isAttacking);
+                    }
                 }
                 else if (GroundCheck(true))
                 {
