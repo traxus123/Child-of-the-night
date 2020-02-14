@@ -60,7 +60,8 @@ public class PlayerController : MonoBehaviour
             {
                 Damage(2);
             }
-            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+            float ltaxis = Input.GetAxis("Horizontal");
+            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) || ltaxis > 0)
             {
 
                 r.position = new Vector3(r.position.x + speed * Time.fixedDeltaTime, r.position.y, r.position.z);
@@ -68,7 +69,7 @@ public class PlayerController : MonoBehaviour
                 rotation = 1;
                 isRunning = true;
             }
-            else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.Q))
+            else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.Q) || ltaxis < 0)
             {
                 r.position = new Vector3(r.position.x - speed * Time.fixedDeltaTime, r.position.y, r.position.z);
                 transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z);
@@ -80,7 +81,7 @@ public class PlayerController : MonoBehaviour
                 isRunning = false;
             }
 
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button0))
             {
                 if (!isJumping)
                 {
@@ -105,9 +106,10 @@ public class PlayerController : MonoBehaviour
             {
                 inAttBonus = false;
             }
+            
             if (!inAttaque)
             {
-                if (Input.GetKey(KeyCode.K))
+                if (Input.GetKey(KeyCode.K) || Input.GetKey(KeyCode.Joystick1Button1))
                 {
                     inAttaque = true;
 
@@ -143,7 +145,16 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerStay(Collider col)
     {
-        
+        if (Input.GetKey(KeyCode.Joystick1Button4))
+        {
+            if (!hasAtt)
+            {
+                inAttaque = true;
+                anim.SetBool("inAttBonus", inAttaque);
+                Heal(-2);
+                col.gameObject.GetComponent<EnemyController>().Damage(att * 2);
+            }
+        }
         if (inAttaque && !hasAtt)
         {
             if (col.gameObject.CompareTag("Enemy"))
@@ -163,7 +174,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I) || Input.GetKey(KeyCode.Joystick1Button2))
         {
             if (!hasAtt)
             {
