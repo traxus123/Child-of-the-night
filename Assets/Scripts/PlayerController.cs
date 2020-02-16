@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -199,7 +200,7 @@ public class PlayerController : MonoBehaviour
             inDrink = false;
             //anim.SetBool("inDrink", inDrink);
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             if (col.gameObject.CompareTag("NPC"))
             {
@@ -232,7 +233,8 @@ public class PlayerController : MonoBehaviour
         if(life <= 0)
         {
             life = 0;
-            anim.SetBool("Dead", true);
+            SceneManager.LoadScene("Main_Menu");
+            //anim.SetBool("Dead", true);
         }
     }
 
@@ -250,7 +252,7 @@ public class PlayerController : MonoBehaviour
 
     public void HitAnim()
     {
-        r.velocity = new Vector3(r.velocity.x + 2.0f * -rotation, r.velocity.x , r.velocity.z);
+        r.velocity = new Vector3(r.velocity.x + 2.0f * -rotation, r.velocity.y , r.velocity.z);
         anim.SetBool("isHit", true);
     }
 
