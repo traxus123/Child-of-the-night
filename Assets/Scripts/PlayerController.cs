@@ -91,13 +91,13 @@ public class PlayerController : MonoBehaviour
                     anim.SetBool("isJumping", isJumping);
                 }
             }
-
+            if (!Input.GetKey(KeyCode.I) && inDrink)
+            {
+                inDrink = false;
+            }
             if (!Input.GetKey(KeyCode.K) && inAttaque)
             {
                 inAttaque = false;
-
-                //transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z / 2);
-
             }
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
@@ -194,11 +194,6 @@ public class PlayerController : MonoBehaviour
                     Heal(att);
                 }
             }
-        }
-        if (Input.GetKeyUp(KeyCode.I))
-        {
-            inDrink = false;
-            //anim.SetBool("inDrink", inDrink);
         }
         if (Input.GetKeyDown(KeyCode.O))
         {

@@ -2010,7 +2010,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 375381619}
   m_LocalRotation: {x: 0.062137287, y: 0, z: 0, w: 0.9980677}
-  m_LocalPosition: {x: -20, y: 3.2, z: -9.24}
+  m_LocalPosition: {x: -30.85252, y: 3.1999972, z: -9.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1152228245}
@@ -3694,7 +3694,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: NaN, y: 6.4620805e-18, z: 4.5905e-41, w: 0}
+  m_BoundingSphereOverride: {x: 6.984e-42, y: 1.02e-43, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -5390,8 +5390,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6.22797, y: 1.2865245, z: 3.9506454}
-  m_Center: {x: 0.111356735, y: 0.14326227, z: -1.9753227}
+  m_Size: {x: 0.28048325, y: 1.2865245, z: 3.9506454}
+  m_Center: {x: -0.11612892, y: 0.14326227, z: -1.9753227}
 --- !u!114 &974179455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5407,9 +5407,12 @@ MonoBehaviour:
   dialogue:
     id: Test_03
     noms:
-    - Barman
+    - ???
+    - ???
     phrases:
-    - Bonjour
+    - "Excusez moi, mais o\xF9 sommes nous ?"
+    - "O\xF9 sommes nous ? Vous me blessez ! Vous vous trouvez au \u201CSang pour
+      sang\u201D, le meilleur bar dans les environs !\r\n"
 --- !u!1001 &986439740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8505,7 +8508,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1473659573}
   m_LocalRotation: {x: 0.062137287, y: -0, z: -0, w: 0.9980677}
-  m_LocalPosition: {x: -20, y: 3.2, z: -9.24}
+  m_LocalPosition: {x: -33.98, y: 3.2, z: -9.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 446289975}
@@ -11975,7 +11978,7 @@ PrefabInstance:
     - target: {fileID: 8595362194144316748, guid: c922fe2f4e4478b46af08cd8dc18323a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.98
+      value: 8.05
       objectReference: {fileID: 0}
     - target: {fileID: 8595362194144316748, guid: c922fe2f4e4478b46af08cd8dc18323a,
         type: 3}
@@ -12036,7 +12039,7 @@ GameObject:
   - component: {fileID: 974179454}
   - component: {fileID: 974179455}
   m_Layer: 0
-  m_Name: Passant_garcon
+  m_Name: Barman
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12052,7 +12055,7 @@ Animator:
   m_GameObject: {fileID: 2604259155744677293}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fb1e4238802b7964f9b6a3b86712042b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 06bf1667a8caaa9478c1014f81c1fcb5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -12092,7 +12095,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 49ad38d4aeccdd84495f0051f5851d8c, type: 2}
+  - {fileID: 2100000, guid: f2e33a385146c3046a9a08c07b3f16f5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12129,7 +12132,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2604259155744677293}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -42.99, y: 1.05, z: 2.47}
+  m_LocalPosition: {x: -42.99, y: 1.05, z: 2.56}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 1793257260}
@@ -12366,7 +12369,7 @@ PrefabInstance:
     - target: {fileID: 8481225068033798080, guid: c562c9dc7323f5544b6be101325cfc3f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -13.98
       objectReference: {fileID: 0}
     - target: {fileID: 8481225068033798080, guid: c562c9dc7323f5544b6be101325cfc3f,
         type: 3}

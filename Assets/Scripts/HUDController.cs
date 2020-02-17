@@ -26,6 +26,6 @@ public class HUDController : MonoBehaviour
     {
         life.text = player.life.ToString();
         //maxLife.text = player.maxLife.ToString();
-        lifeGauge.rectTransform.sizeDelta = new Vector2(320*((float)player.life/(float)player.maxLife), 32);
+        lifeGauge.rectTransform.sizeDelta = new Vector2(320*((float)player.life/(float)player.maxLife), 20);
     }
 }
