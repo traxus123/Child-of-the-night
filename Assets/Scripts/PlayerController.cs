@@ -49,7 +49,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per physics tick
     void FixedUpdate()
     {
-        anim.SetBool("inAttBonus", false);
         if (!active)
         {
             isRunning = false;
@@ -58,10 +57,6 @@ public class PlayerController : MonoBehaviour
         }
         if (!inDialogue)
         {
-            if (Input.GetKey(KeyCode.P))
-            {
-                Damage(2);
-            }
             float ltaxis = Input.GetAxis("Horizontal");
             if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) || ltaxis > 0)
             {
@@ -100,7 +95,7 @@ public class PlayerController : MonoBehaviour
             {
                 inAttaque = false;
             }
-            if (inAttBonus)
+            if (!Input.GetKey(KeyCode.LeftShift) && inAttBonus)
             {
                 inAttBonus = false;
             }
@@ -116,6 +111,7 @@ public class PlayerController : MonoBehaviour
 
                     if (inAttBonus)
                     {
+                        Damage(2);
                         anim.SetBool("inAttBonus", inAttaque);
                         //transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z * 2);
                     }
@@ -150,9 +146,9 @@ public class PlayerController : MonoBehaviour
         {
             if (!hasAtt)
             {
+                Damage(2);
                 inAttaque = true;
                 anim.SetBool("inAttBonus", inAttaque);
-                Heal(-2);
                 col.gameObject.GetComponent<EnemyController>().Damage(att * 2);
             }
         }
@@ -163,9 +159,8 @@ public class PlayerController : MonoBehaviour
                 
                 if (inAttBonus)
                 {
-                    Damage(2);
-
                     col.gameObject.GetComponent<EnemyController>().Damage(att * 2);
+                    Debug.Log("bonus");
                 }
                 else
                 {
@@ -180,16 +175,17 @@ public class PlayerController : MonoBehaviour
             if (!hasAtt)
             {
                 inDrink = true;
-                anim.SetBool("inDrink", inDrink);
                 if (col.gameObject.CompareTag("Enemy"))
                 {
                     //Dégats Enemie
+                    anim.SetBool("inDrink", inDrink);
                     col.gameObject.GetComponent<EnemyController>().Damage(att);
                     Heal(att);
                 }
                 if (col.gameObject.CompareTag("NPC"))
                 {
                     //Dégats NPC
+                    anim.SetBool("inDrink", inDrink);
                     col.gameObject.GetComponent<PnjController>().Damage(att);
                     Heal(att);
                 }
