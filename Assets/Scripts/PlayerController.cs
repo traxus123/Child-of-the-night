@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per physics tick
     void FixedUpdate()
     {
+        anim.SetBool("inAttBonus", false);
         if (!active)
         {
             isRunning = false;
@@ -99,15 +100,14 @@ public class PlayerController : MonoBehaviour
             {
                 inAttaque = false;
             }
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                inAttBonus = true;
-            }
-            if (Input.GetKeyUp(KeyCode.LeftShift))
+            if (inAttBonus)
             {
                 inAttBonus = false;
             }
-            
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                inAttBonus = true;
+            }
             if (!inAttaque)
             {
                 if (Input.GetKey(KeyCode.K) || Input.GetKey(KeyCode.Joystick1Button1))

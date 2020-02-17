@@ -213,9 +213,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: inAttaque
     m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: inAttBonus
-    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3781243854361288706}
   m_Solo: 0
@@ -330,9 +327,6 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: inAttaque
-    m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: inAttBonus
     m_EventTreshold: 0
@@ -618,7 +612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conditionsToFalse:
-  - inAttaque
+  - inAttBonus
 --- !u!1107 &6314337835457766295
 AnimatorStateMachine:
   serializedVersion: 5
