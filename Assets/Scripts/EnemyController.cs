@@ -24,10 +24,9 @@ public class EnemyController : MonoBehaviour
         life = life - damage;
         if (life <= 0)
         {
-            //transform.gameObject.tag = "Dead";
-            //anim.SetBool("Dead", true);
-            Debug.Log(damage + " sur enemie");
-            gameObject.SetActive(false);
+            //transform.gameObject.tag = "DeadThing";
+            anim.SetBool("isDead", true);
+            //gameObject.SetActive(false);
         }
         else
         {

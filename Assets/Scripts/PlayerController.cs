@@ -91,27 +91,29 @@ public class PlayerController : MonoBehaviour
             {
                 inDrink = false;
             }
-            if (!Input.GetKey(KeyCode.K) && inAttaque)
+            if ((!Input.GetKey(KeyCode.K) || !Input.GetKey(KeyCode.Joystick1Button2)) && inAttaque)
             {
                 inAttaque = false;
+                hasAtt = false;
             }
-            if (!Input.GetKey(KeyCode.LeftShift) && inAttBonus)
+            if ((!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.Joystick1Button4)) && inAttBonus)
             {
+                Damage(2);
                 inAttBonus = false;
+                hasAtt = false;
             }
-            if (Input.GetKey(KeyCode.LeftShift))
+            else if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Joystick1Button4))
             {
                 inAttBonus = true;
             }
             if (!inAttaque)
             {
-                if (Input.GetKey(KeyCode.K) || Input.GetKey(KeyCode.Joystick1Button1))
+                if (Input.GetKey(KeyCode.K) || Input.GetKey(KeyCode.Joystick1Button2))
                 {
                     inAttaque = true;
 
                     if (inAttBonus)
                     {
-                        Damage(2);
                         anim.SetBool("inAttBonus", inAttaque);
                         //transform.localScale = new Vector3(rotation, transform.localScale.y, transform.localScale.z * 2);
                     }
@@ -142,16 +144,6 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerStay(Collider col)
     {
-        if (Input.GetKey(KeyCode.Joystick1Button4))
-        {
-            if (!hasAtt)
-            {
-                Damage(2);
-                inAttaque = true;
-                anim.SetBool("inAttBonus", inAttaque);
-                col.gameObject.GetComponent<EnemyController>().Damage(att * 2);
-            }
-        }
         if (inAttaque && !hasAtt)
         {
             if (col.gameObject.CompareTag("Enemy"))
@@ -170,7 +162,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         
-        if (Input.GetKeyDown(KeyCode.I) || Input.GetKey(KeyCode.Joystick1Button2))
+        if (Input.GetKeyDown(KeyCode.I) || Input.GetKey(KeyCode.Joystick1Button1))
         {
             if (!hasAtt)
             {
